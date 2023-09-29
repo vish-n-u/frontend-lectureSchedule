@@ -122,6 +122,7 @@ async function handleLogin(formData,setFormData,err,setErr,navigate,){
           // show toast
         localStorage.setItem("user",JSON.stringify(loginUserJson.message))
           navigate("/")
+          window.location.reload()
           return
       }
 

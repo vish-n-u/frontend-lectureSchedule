@@ -151,6 +151,7 @@ async function handleSubmit(formData,setFormData,err,setErr,navigate){
             // show toast
             localStorage.setItem("user",JSON.stringify(registerUserJson.message))
             navigate("/")
+            window.location.reload()
             return
         }
 
