@@ -1,14 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import InstructorSchedule from '../components/instructorSchedule'
-let user = localStorage.getItem('user')
+let user = JSON.parse(localStorage.getItem('user'))
 
 const Instructor = () => {
   const Navigate = useNavigate()
   return (
     <div className='w-screen h-screen'>
     <div className='flex w-full justify-between'>
-      <h1>Welcome {user.userName}</h1>
+      <h1 className='font-semibold text-xl'>Welcome {user.userName}</h1>
       <div className='flex flex-col'>
         <button onClick={()=>{
         localStorage.removeItem('user')

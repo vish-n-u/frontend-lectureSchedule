@@ -54,7 +54,7 @@ const AssignSheet = ({setIsAssignSheetOpen}) => {
         </div>
         <h1>{!selectedCourse?"Please Select a course you want to assign!":!selectedDate?"Please Select a date":!selectedInstructor?"Please select an Instructor you want to assign this course":""}</h1>
         <button
-        onClick={()=>handleSave(selectedDate,selectedInstructor,selectedCourse)}
+        onClick={()=>handleSave(selectedDate,selectedInstructor,selectedCourse,setIsAssignSheetOpen)}
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded my-8 hover:bg-blue-600"
           >
@@ -65,7 +65,7 @@ const AssignSheet = ({setIsAssignSheetOpen}) => {
   )
 }
 
-async function getData(setAllCourses,setAllInstructor,setIsAssignSheetOpen){
+async function getData(setAllCourses,setAllInstructor,){
   let user = JSON.parse(localStorage.getItem('user'));
   try{
     let allCourses = await fetch(getAllCoursesUrl,{
@@ -86,25 +86,18 @@ async function getData(setAllCourses,setAllInstructor,setIsAssignSheetOpen){
     setAllCourses(allCoursesJson.message)
     if(allInstructors.status === 200)
     setAllInstructor(allInstructorsJson.message)
-    if(allInstructors.status==201){
-      alert("Successfully assigned")
-      setIsAssignSheetOpen(false)
-
-    }
-    else{
-      return alert("Internal Error please retry")
-    }
-
+    
+    
   }
   catch(e){
     console.log(e)
-    return alert("Internal Error please retry")
+    return
   }
 
 }
 
 
-async function handleSave(selectedDate,selectedInstructor,selectedCourse){
+async function handleSave(selectedDate,selectedInstructor,selectedCourse,setIsAssignSheetOpen){
   if(!selectedDate) return alert("Please select a date")
   if(!selectedInstructor) return alert("Please select an Instructor")
   if(!selectedCourse) return alert("Please select a course")
@@ -124,6 +117,11 @@ const newschedule = await fetch(createNewScheduleUrl,{
 })
 const newScheduleJson = await newschedule.json()
 console.log(newScheduleJson)
+if(newschedule.status==201||newschedule.status==200){
+  alert("Successfully Assigned")
+  setIsAssignSheetOpen(false)
+
+}
 
 }
 catch(err){

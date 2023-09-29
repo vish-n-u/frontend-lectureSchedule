@@ -9,7 +9,7 @@ const InstructorSchedule = () => {
   },[])
   return (
     <div className='w-[90%] max-h-[90%] flex justify-center'>
-    <table className="table-auto w-[50%] h-auto border-2 border-black">
+    {schedules.length!=0?<table className="table-auto w-[50%] h-auto border-2 border-black">
       <thead className='border-b-2 border-t-2 border-black'>
         <tr>
           <th className='border-r-2 border-black'>Courses</th>
@@ -19,7 +19,7 @@ const InstructorSchedule = () => {
       <tbody>
         {
           schedules?.assignedSchedules?.map((schedule)=>{
-            return <tr>
+            return <tr key={schedule._id}>
             <td className='border-r-2 border-b-2 border-black'><CourseButton course={schedule.courseId}/></td>
             <td className='border-b-2 border-black'>{new Date(schedule.date).toDateString()}</td>
             </tr>
@@ -27,7 +27,7 @@ const InstructorSchedule = () => {
         }
 
       </tbody>
-    </table>
+    </table>:<h1>Loading....</h1>}
     </div>
   )
 }
@@ -38,7 +38,7 @@ async function getData(setSchedule){
 let allSchedule = await fetch(getInstructorScheduleUrl,{
   method:"POST",
   mode:"cors",
-  headers:{"Content-type":"application/json"},
+  headers:{"Content-Type":"application/json"},
   body:JSON.stringify({token:user.token})
 }
 )
@@ -49,7 +49,7 @@ console.log(allScheduleJson.message)
   }
   catch(err){
     console.log(err)
-    return alert("Server error: " )
+    // return alert("Server error: " )
   }
 }
 

@@ -1,30 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faCircleInfo} from '@fortawesome/free-solid-svg-icons'
+const atob = window.atob;
 
 const CourseButton = ({course,setSelectedCourse,selectedCourse}) => {
-    const  [image,setImageUrl] = useState()
     const [isMoreInfoClicked,setIsMoreInfoClicked] = useState(false)
-    console.log(course.image)
-    let imageBuffer = course.image.data
-    useEffect(() => {
-      if (imageBuffer) {
-        // Create a Blob from the imageBuffer
-        const blob = new Blob([new Uint8Array(imageBuffer)], { type: 'image/jpeg' });
-  
-        // Use FileReader to read the Blob as a data URL
-        const reader = new FileReader();
-        reader.onload = () => {
-          setImageUrl(reader.result);
-        };
-        reader.readAsDataURL(blob);
-      }
-    }, [imageBuffer]);
-    console.log("image",image)
+    const [imageData, setImageData] = useState(null);
+
+    // const decodedString = atob(course.image.data);
+    // const blob = new Blob([decodedString], { type: 'image/png' });
+    // const dataUrl = URL.createObjectURL(blob);
   
   return (
-    <div onClick={()=>{if(setSelectedCourse)setSelectedCourse(course._id)}} className={`w-48 h-20 flex align-middle items-center justify-around cursor-pointer ${selectedCourse==course._id?"border-2 border-black":""}`}>
-        <img src={image} alt="courseImage" className='w-10 h-10 rounded-full'/>
+    <div key={course._id} onClick={()=>{if(setSelectedCourse)setSelectedCourse(course._id)}} className={`w-48 h-20 flex align-middle items-center justify-around cursor-pointer ${selectedCourse==course._id?"border-2 border-black":""}`}>
+        
+        <img src="https://www.techrepublic.com/wp-content/uploads/2022/12/tr-11-22-Figure-A-How-to-print-from-Microsoft-Excel-and-avoid-printing-problems-770x450.jpg" alt="courseImage" className='w-10 h-10 rounded-full'/>
         <h1 className='font-semibold text-lg'>{course.name}</h1>
         <FontAwesomeIcon icon={faCircleInfo} className='z-20' onClick={()=>setIsMoreInfoClicked(true)}/>
      {isMoreInfoClicked&& <ShowCourseDetail course={course} setIsMoreInfoClicked={setIsMoreInfoClicked}/>}
