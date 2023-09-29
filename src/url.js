@@ -1,0 +1,7 @@
+export const registerUrl = "https://backend-lectureschedule.onrender.com/lectureschedule/api/v1/register"
+export const loginUrl = "https://backend-lectureschedule.onrender.com/lectureschedule/api/v1/login"
+export const createCourse = "https://backend-lectureschedule.onrender.com/lectureschedule/api/v1/course"
+export const getAllCoursesUrl = "https://backend-lectureschedule.onrender.com/lectureschedule/api/v1/courses"
+export const getAllInstructorsUrl = "https://backend-lectureschedule.onrender.com/lectureschedule/api/v1/users"
+export const getInstructorScheduleUrl = "https://backend-lectureschedule.onrender.com/lectureschedule/api/v1/users/schedule"
+export const createNewScheduleUrl = "https://backend-lectureschedule.onrender.com/lectureschedule/api/v1/schedule"
